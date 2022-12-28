@@ -1,9 +1,7 @@
 # nepali-to-english-date-converter
 This is the helper class to convert every English  dates to Nepali
 
-**Namespace App\Http\Services;**:
-
-
+Copy this file to namespace **App\Http\Services**: 
 
 
 ## Uses
