@@ -65,5 +65,5 @@ $dateConverter->_get_english_month('01' );
 ```php
 
 $nep_date =  $object->eng_to_nep('2018-01-01','y-mn-d');
-// 2074 पुष ११;
+// २०७४ पुस  ११
 ```
