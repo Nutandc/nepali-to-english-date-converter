@@ -226,7 +226,7 @@ class DateConverter
                 $total_nDays = '0' . $total_nDays;
             }
             if ($format && $format === 'y-mn-d') {
-                return $y . "," . $this->_get_nepali_month($m) . "," . $this->convert_to_nepali_number($total_nDays);
+                return $y . " " . $this->_get_nepali_month($m) . " " . $this->convert_to_nepali_number($total_nDays);
             }
             return $y . "-" . $m . "-" . $total_nDays;
 //            return $this->_nep_date;
