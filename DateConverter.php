@@ -226,7 +226,7 @@ class DateConverter
                 $total_nDays = '0' . $total_nDays;
             }
             if ($format && $format === 'y-mn-d') {
-                return $y . " " . $this->_get_nepali_month($m) . " " . $this->convert_to_nepali_number($total_nDays);
+                return $this->convert_to_nepali_number($y) . " " . $this->_get_nepali_month($m) . " " . $this->convert_to_nepali_number($total_nDays);
             }
             return $y . "-" . $m . "-" . $total_nDays;
 //            return $this->_nep_date;
@@ -378,16 +378,16 @@ class DateConverter
     public function convert_to_nepali_number($str): string
     {
         $str = strval($str);
-        $array = [0 => '&#2406;',
-            1 => '&#2407;',
-            2 => '&#2408;',
-            3 => '&#2409;',
-            4 => '&#2410;',
-            5 => '&#2411;',
-            6 => '&#2412;',
-            7 => '&#2413;',
-            8 => '&#2414;',
-            9 => '&#2415;',
+        $array = [0 => '०',
+            1 => '१',
+            2 => '२;',
+            3 => '३',
+            4 => '४',
+            5 => '५',
+            6 => '६',
+            7 => '७',
+            8 => '८',
+            9 => '९',
             /*'.'=>'&#2404;'*/
         ];
         $utf = '';
