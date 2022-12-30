@@ -109,7 +109,7 @@ class DateConverter
     private $_nep_date = ['year' => '', 'month' => '', 'date' => '', 'day' => '', 'nmonth' => '', 'num_day' => ''];
     private $_eng_date = ['year' => '', 'month' => '', 'date' => '', 'day' => '', 'emonth' => '', 'num_day' => ''];
 
-    public function get_num_of_nepali_days($year, $month)
+    public function get_num_of_nepali_days($year, $month): int
     {
         $yy = $year[2] . $year[3];
         $mm = intval($month);
@@ -117,16 +117,15 @@ class DateConverter
         return $this->_bs[$yy][$mm];
     }
 
+
     /**
      * currently can only calculate the date between AD 1944-2033...
      *
-     * @param int $yy
-     * @param int $mm
-     * @param int $dd
-     *
-     * @return array
+     * @param $dates
+     * @param null $format
+     * @return string
      */
-    public function eng_to_nep($dates)
+    public function eng_to_nep($dates, $format = null): string
     {
         $date = explode("-", $dates);
         $yy = $date[0];
@@ -226,11 +225,10 @@ class DateConverter
             if ($total_nDays < 10) {
                 $total_nDays = '0' . $total_nDays;
             }
-
-            $converted_date = $y . "-" . $m . "-" . $total_nDays;
-            return $converted_date;
-
-
+            if ($format && $format === 'y-mn-d') {
+                return $y . "," . $this->_get_nepali_month($m) . "," . $this->convert_to_nepali_number($total_nDays);
+            }
+            return $y . "-" . $m . "-" . $total_nDays;
 //            return $this->_nep_date;
         }
     }
@@ -242,9 +240,9 @@ class DateConverter
      * @param int $mm
      * @param int $dd
      *
-     * @return bool
+     * @return bool|string
      */
-    private function _is_in_range_eng($yy, $mm, $dd)
+    private function _is_in_range_eng($yy, $mm, $dd): bool|string
     {
         if ($yy < 1944 || $yy > 2033) {
             return 'Supported only between 1944-2022';
@@ -260,28 +258,33 @@ class DateConverter
     }
 
     /**
-     * Calculates wheather english year is leap year or not.
+     * Calculates whether english year is leap year or not.
      *
      * @param int $year
      *
      * @return bool
      */
-    public function is_leap_year($year)
+    public function is_leap_year(int $year): bool
     {
-        $a = $year;
+//        $a = $year;
+//        if ($a % 100 == 0) {
+//            if ($a % 400 == 0) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        } else {
+//            if ($a % 4 == 0) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
+          $a = $year;
         if ($a % 100 == 0) {
-            if ($a % 400 == 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if ($a % 4 == 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return $a % 400 == 0;
         }
+        return $a % 4 == 0;
     }
 
     /**
@@ -289,9 +292,9 @@ class DateConverter
      *
      * @param int $day
      *
-     * @return string
+     * @return int|string
      */
-    private function _get_day_of_week($day)
+    private function _get_day_of_week($day): int|string
     {
         switch ($day) {
             case 1:
@@ -325,9 +328,9 @@ class DateConverter
      *
      * @param int $m
      *
-     * @return string
+     * @return bool|string
      */
-    private function _get_nepali_month($m)
+    private function _get_nepali_month(int $m): bool|string
     {
         $n_month = false;
         switch ($m) {
@@ -372,7 +375,7 @@ class DateConverter
         return $n_month;
     }
 
-    public function convert_to_nepali_number($str)
+    public function convert_to_nepali_number($str): string
     {
         $str = strval($str);
         $array = [0 => '&#2406;',
@@ -403,13 +406,10 @@ class DateConverter
     /**
      * Currently can only calculate the date between BS 2000-2089.
      *
-     * @param int $yy
-     * @param int $mm
-     * @param int $dd
-     *
-     * @return array
+     * @param $dates
+     * @return array|string
      */
-    public function nep_to_eng($dates)
+    public function nep_to_eng($dates): array|string
     {
         $date = explode("-", $dates);
         $yy = $date[0];
@@ -494,8 +494,7 @@ class DateConverter
                 $total_eDays = '0' . $total_eDays;
             }
 
-            $converted_date = $y . "-" . $m . "-" . $total_eDays;
-            return $converted_date;
+            return $y . "-" . $m . "-" . $total_eDays;
 
 //            return $this->_eng_date;
         }
@@ -508,9 +507,9 @@ class DateConverter
      * @param int $mm
      * @param int $dd
      *
-     * @return bool
+     * @return bool|string
      */
-    private function _is_in_range_nep($yy, $mm, $dd)
+    private function _is_in_range_nep(int $yy, int $mm, int $dd): bool|string
     {
         if ($yy < 2000 || $yy > 2089) {
             return 'Supported only between 2000-2089';
@@ -530,9 +529,9 @@ class DateConverter
      *
      * @param int $m
      *
-     * @return string
+     * @return bool|string
      */
-    private function _get_english_month($m)
+    private function _get_english_month(int $m): bool|string
     {
         $eMonth = false;
         switch ($m) {
