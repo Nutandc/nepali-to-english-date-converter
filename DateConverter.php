@@ -226,7 +226,8 @@ class DateConverter
                 $total_nDays = '0' . $total_nDays;
             }
             if ($format && $format === 'y-mn-d') {
-                return $this->convert_to_nepali_number($y) . " " . $this->_get_nepali_month($m) . " " . $this->convert_to_nepali_number($total_nDays);
+                return $this->convert_to_nepali_number($y) . " " . $this->_get_nepali_month($m) . " " . $this->convert_to_nepali_number($total_nDays)
+                    .' गते,'.$this->_nep_date['day'];
             }
             return $y . "-" . $m . "-" . $total_nDays;
 //            return $this->_nep_date;
@@ -280,7 +281,7 @@ class DateConverter
 //                return false;
 //            }
 //        }
-          $a = $year;
+        $a = $year;
         if ($a % 100 == 0) {
             return $a % 400 == 0;
         }
@@ -330,7 +331,7 @@ class DateConverter
      *
      * @return bool|string
      */
-    private function _get_nepali_month(int $m): bool|string
+    public function _get_nepali_month(int $m): bool|string
     {
         $n_month = false;
         switch ($m) {
@@ -380,7 +381,7 @@ class DateConverter
         $str = strval($str);
         $array = [0 => '०',
             1 => '१',
-            2 => '२;',
+            2 => '२',
             3 => '३',
             4 => '४',
             5 => '५',
@@ -509,7 +510,7 @@ class DateConverter
      *
      * @return bool|string
      */
-    private function _is_in_range_nep(int $yy, int $mm, int $dd): bool|string
+    public function _is_in_range_nep(int $yy, int $mm, int $dd): bool|string
     {
         if ($yy < 2000 || $yy > 2089) {
             return 'Supported only between 2000-2089';
@@ -531,7 +532,7 @@ class DateConverter
      *
      * @return bool|string
      */
-    private function _get_english_month(int $m): bool|string
+    public function _get_english_month(int $m): bool|string
     {
         $eMonth = false;
         switch ($m) {
