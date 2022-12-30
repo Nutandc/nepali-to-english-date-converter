@@ -60,3 +60,10 @@ $dateConverter->_get_nepali_month('01' );
 $dateConverter->_get_english_month('01' );
 // January
 ```
+### Convert English date to nepali with nepali format
+
+```php
+
+$nep_date =  $object->eng_to_nep('2018-01-01','y-mn-d');
+// 2074,पुष,११;
+```
