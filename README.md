@@ -1,69 +1,44 @@
-# nepali-to-english-date-converter
+# Convert English date to nepali
 This is the helper class to convert every English  dates to Nepali
 
-Copy this file to namespace **App\Http\Services**: 
+Copy this file to namespace **App\Http\Services**:
 
 
 ## Uses
-### Convert English date to nepali
-#### Currently can only calculate the date between BS 2000-2089.
+#### Currently, can only calculate the date between BS 2000-2089.
+This package can convert english date to nepali date.
 
-```php
-$dateConverter = new \App\Http\Services\DateConverter();
-//$date = now()->format('Y-m-d');
-$date = '2022-12-28';
-echo $date;
-$dateConverter->eng_to_nep($date);
+## Installation
 
-// "2079-09-13"
 
+## Usage
+
+``` php
+$date = new \App\Services\DateConverter();
+$nep_date =  $date->create(Carbon::create('2022-9-8'))->toFormattedBSDate();
+
+$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toNepaliDate();
+//Output: 2077-6-18
+
+$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toFormattedNepaliDate();
+//Output: २०७७ असोज १८, आइतवार
+
+$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toNepaliDateArray();
+//Output:
+[
+    'year' => 2077,
+    'month' => 6,
+    'day' => 18,
+    'day_of_week' => 1,
+]
+
+$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toFormattedNepaliDateArray();
+//Output:
+[
+    'year' => '२०७७',
+    'month' => 'असोज',
+    'day' => '१८',
+    'day_of_week' => 'आइतवार',
+]
 ```
 
-### Count Nepali days by year and month
-
-```php
-$dateConverter->get_num_of_nepali_days('2078', '12');
-// 30
-```
-
-### Check Date Range
-
-```php
-$dateConverter->_is_in_range_eng('2022', '12','30');
-// true
-```
-
-### Check Leap year
-
-```php
-$dateConverter->is_leap_year('2022');
-// False
-```
-
-### Convert english number to nepali number
-
-```php
-$dateConverter->convert_to_nepali_number('1111');
-// ११११
-```
-
-### Convert english number to nepali number
-
-```php
-$dateConverter->_get_nepali_month('01' );
-// बैशाख
-```
-
-### Convert english number to nepali number
-
-```php
-$dateConverter->_get_english_month('01' );
-// January
-```
-### Convert English date to nepali with nepali format
-
-```php
-
-$nep_date =  $object->eng_to_nep('2018-01-01','y-mn-d');
-// २०७४ पुस  ११ गते, बिहीबार
-```
