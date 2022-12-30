@@ -8,6 +8,8 @@ author website: http://dahalnutan.com.np
 author linkedin: https://www.linkedin.com/in/nutan-dahal-9b4b4b1a4/
 author GitHub:https://github.com/nutandc
 */
+
+
 use Carbon\Carbon;
 
 class DateConverter
@@ -144,7 +146,7 @@ class DateConverter
 
     public function toFormattedNepaliDate(): string
     {
-        return $this->formattedNepaliNumber($this->nepaliDay) . ' ' . $this->formattedNepaliMonth($this->nepaliMonth) . ' ' . $this->formattedNepaliNumber($this->nepaliYear) . ',' . ' ' . $this->formattedNepaliDateOfWeek($this->dayOfWeek);
+        return  $this->formattedNepaliNumber($this->nepaliYear)  . ' ' . $this->formattedNepaliMonth($this->nepaliMonth) .' '. $this->formattedNepaliNumber($this->nepaliDay) . ', ' . $this->formattedNepaliDateOfWeek($this->dayOfWeek);
     }
 
     public function formattedNepaliNumber($value): string
